@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.vkl.cafemania.domain.Category;
+import com.vkl.cafemania.dto.CategoryDTO;
 import com.vkl.cafemania.repositories.CategoryRepository;
 import com.vkl.cafemania.services.exceptions.DataIntegrityException;
 import com.vkl.cafemania.services.exceptions.ObjectNotFoundException;
@@ -59,6 +60,9 @@ public class CategoryService{
 		return repo.findAll(pageRequest);
 	}
 	
+	public Category fromDTO(CategoryDTO objDto) {
+		return new Category(objDto.getId(), objDto.getName());
+	}
 	
 	
 }
