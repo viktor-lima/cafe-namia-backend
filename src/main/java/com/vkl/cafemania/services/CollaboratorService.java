@@ -1,5 +1,6 @@
 package com.vkl.cafemania.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.vkl.cafemania.domain.Collaborator;
 import com.vkl.cafemania.dto.CollaboratorDTO;
+import com.vkl.cafemania.dto.CollaboratorNewDTO;
 import com.vkl.cafemania.repositories.CollaboratorRepository;
 import com.vkl.cafemania.services.exceptions.DataIntegrityException;
 
@@ -51,8 +53,6 @@ public class CollaboratorService{
 		}
 	}
 	
-
-
 	public List<Collaborator> findAll() {
 		return repo.findAll();
 	}
@@ -65,4 +65,29 @@ public class CollaboratorService{
 	public Collaborator fromDTO(CollaboratorDTO objDto) {
 		return new Collaborator(objDto.getId(), objDto.getName(), objDto.getEmail(), null);
 	}
+	
+	public Collaborator fromDTO(CollaboratorNewDTO objDto) {
+		Collaborator collaborator = new Collaborator(null, objDto.getName(), objDto.getEmail(), objDto.getCpf());
+		collaborator.getPhones().add(objDto.getPhone1());
+		
+		if(objDto.getPhone2() != null) 
+			collaborator.getPhones().add(objDto.getPhone2());
+		
+		return collaborator;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
