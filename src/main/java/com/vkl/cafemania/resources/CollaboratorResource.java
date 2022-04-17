@@ -1,15 +1,22 @@
 package com.vkl.cafemania.resources;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vkl.cafemania.domain.Category;
 import com.vkl.cafemania.domain.Collaborator;
-import com.vkl.cafemania.services.CategoryService;
+import com.vkl.cafemania.dto.CollaboratorDTO;
 import com.vkl.cafemania.services.CollaboratorService;
 
 @RestController
@@ -27,4 +34,37 @@ public class CollaboratorResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update (@Valid @RequestBody CollaboratorDTO objDto, @PathVariable Integer id){
+		Collaborator obj = service.fromDTO(objDto);
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<CollaboratorDTO>> findAll() {
+		List<Collaborator> list = service.findAll();
+		List<CollaboratorDTO> objDto = list.stream().map(obj -> new CollaboratorDTO(obj)).collect(Collectors.toList()); 
+		return ResponseEntity.ok().body(objDto);
+	}
+	
+	@RequestMapping(value = "/page",method = RequestMethod.GET)
+	public ResponseEntity<Page<CollaboratorDTO>> findPage(
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
+			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy
+			) {
+		Page<Collaborator> list = service.findPage(page,linesPerPage,direction,orderBy);
+		Page<CollaboratorDTO> objDto = list.map(obj -> new CollaboratorDTO(obj)); 
+		return ResponseEntity.ok().body(objDto);
+	}
 }
