@@ -33,6 +33,8 @@ public class CafemaniaApplication implements CommandLineRunner{
 		Category category1 = new Category(null, "Salgados");
 		Category category2 = new Category(null, "Doces");
 		Category category3 = new Category(null, "Bebidas");
+		Category category4 = new Category(null, "Frutas");
+		Category category5 = new Category(null, "Organicos");
 		
 		
 		Item item1 = new Item(null, "coxinha", "cosinha de frango fit", category1);
@@ -48,6 +50,8 @@ public class CafemaniaApplication implements CommandLineRunner{
 		item2.setCategory(category1);
 		item3.setCategory(category2);
 		item4.setCategory(category3);
+
+		categoryRepository.saveAll(Arrays.asList(category1,category2, category3,category4,category5));
 		
 		Collaborator collaborator1 = new Collaborator(null, "viktor", "viktor@gmail.com", "16589456800");
 		collaborator1.getItems().addAll(Arrays.asList(item1, item2));
@@ -61,7 +65,6 @@ public class CafemaniaApplication implements CommandLineRunner{
 		item3.setCollaborator(collaborator2);
 		item4.setCollaborator(collaborator2);
 		
-		categoryRepository.saveAll(Arrays.asList(category1,category2, category3));
 		collaboratorRepository.saveAll(Arrays.asList(collaborator1,collaborator2));
 		itemRepository.saveAll(Arrays.asList(item1, item2,item3,item4));
 	}
