@@ -8,19 +8,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vkl.cafemania.domain.Category;
-import com.vkl.cafemania.services.CategoryService;
+import com.vkl.cafemania.domain.Item;
+import com.vkl.cafemania.services.ItemService;
 
 @RestController
-@RequestMapping(value = "/categories")
-public class CategoryResource {
+@RequestMapping(value = "/items")
+public class ItemResource {
 	
 	@Autowired
-	private CategoryService service;
+	private ItemService service;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Category> find(@PathVariable Integer id) {
+	public ResponseEntity<Item> find(@PathVariable Integer id) {
 		
-		Category obj = service.find(id);
+		Item obj = service.find(id);
 		
 		return ResponseEntity.ok().body(obj);
 	}

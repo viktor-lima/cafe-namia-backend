@@ -1,39 +1,43 @@
 package com.vkl.cafemania.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Category implements Serializable{
+public class Item implements Serializable{
+
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
-	@JsonIgnore
-	@OneToMany(mappedBy = "category")
-	List<Item> items = new ArrayList<>();
+	private String description;
 	
 	
-	public Category() {
+	@ManyToOne
+	@JoinColumn(name="category_id")
+	private Category category;
+	
+	public Item() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Category(Integer id, String name) {
+	public Item(Integer id, String name, String description, Category category) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.description = description;
+		this.category = category;
 	}
 
 	public Integer getId() {
@@ -52,12 +56,20 @@ public class Category implements Serializable{
 		this.name = name;
 	}
 
-	public List<Item> getItems() {
-		return items;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setItems(List<Item> items) {
-		this.items = items;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	@Override
@@ -73,12 +85,10 @@ public class Category implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Item other = (Item) obj;
 		return Objects.equals(id, other.id);
 	}
+
 	
-	
-	
-	
-	
+
 }
