@@ -15,7 +15,7 @@ public class CategoryDTO  implements Serializable{
 	
 	private Integer id;
 	@NotEmpty(message = "field cannot be empty")
-	@Length(min = 5, max = 100, message = "precise field have to be betwem 5 to 100")
+	@Length(min = 4, max = 100, message = "precise field have to be betwem 5 to 100")
 	private String name;
 	
 	public CategoryDTO() {

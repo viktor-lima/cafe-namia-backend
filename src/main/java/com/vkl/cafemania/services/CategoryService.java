@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.vkl.cafemania.domain.Category;
+import com.vkl.cafemania.domain.Collaborator;
 import com.vkl.cafemania.dto.CategoryDTO;
 import com.vkl.cafemania.repositories.CategoryRepository;
 import com.vkl.cafemania.services.exceptions.DataIntegrityException;
@@ -36,8 +37,13 @@ public class CategoryService{
 	}
 	
 	public Category update(Category obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Category newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+	
+	private void updateData(Category newObj, Category obj) {
+		newObj.setName(obj.getName());
 	}
 
 
