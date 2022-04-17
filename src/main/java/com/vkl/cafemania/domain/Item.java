@@ -23,6 +23,7 @@ public class Item implements Serializable{
 	private String name;
 	private String description;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private Category category;

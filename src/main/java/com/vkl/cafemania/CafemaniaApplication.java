@@ -60,9 +60,6 @@ public class CafemaniaApplication implements CommandLineRunner{
 		collaborator2.getItems().addAll(Arrays.asList(item3, item4));
 		item3.setCollaborator(collaborator2);
 		item4.setCollaborator(collaborator2);
-	
-		
-		
 		
 		categoryRepository.saveAll(Arrays.asList(category1,category2, category3));
 		collaboratorRepository.saveAll(Arrays.asList(collaborator1,collaborator2));
