@@ -53,11 +53,14 @@ public class CafemaniaApplication implements CommandLineRunner{
 		collaborator1.getItems().addAll(Arrays.asList(item1, item2));
 		item1.setCollaborator(collaborator1);
 		item2.setCollaborator(collaborator1);
+		collaborator1.getPhones().addAll(Arrays.asList("965268651"));
+		
 		
 		Collaborator collaborator2 = new Collaborator(null, "tata", "tata@gmail.com", "15689456900");
 		collaborator2.getItems().addAll(Arrays.asList(item3, item4));
 		item3.setCollaborator(collaborator2);
 		item4.setCollaborator(collaborator2);
+	
 		
 		
 		

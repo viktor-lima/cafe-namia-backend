@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +30,9 @@ public class Collaborator implements Serializable{
 	@OneToMany(mappedBy = "collaborator")
 	List<Item> items = new ArrayList<>();
 	
-//	private Set<String> phones = new HashSet<>();
+	@ElementCollection
+	@CollectionTable(name = "phones")
+	private Set<String> phones = new HashSet<>();
 	
 	public Collaborator() {
 		// TODO Auto-generated constructor stub
@@ -82,13 +86,13 @@ public class Collaborator implements Serializable{
 		this.items = items;
 	}
 	
-//	public Set<String> getPhones() {
-//		return phones;
-//	}
-//
-//	public void setPhones(Set<String> phones) {
-//		this.phones = phones;
-//	}
+	public Set<String> getPhones() {
+		return phones;
+	}
+
+	public void setPhones(Set<String> phones) {
+		this.phones = phones;
+	}
 
 	@Override
 	public int hashCode() {
