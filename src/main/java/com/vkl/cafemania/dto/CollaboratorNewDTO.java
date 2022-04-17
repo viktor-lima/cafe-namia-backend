@@ -2,15 +2,29 @@ package com.vkl.cafemania.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.vkl.cafemania.services.validation.CollaboratorInsert;
+
+@CollaboratorInsert
 public class CollaboratorNewDTO implements Serializable{
 
 
 	private static final long serialVersionUID = 1L;
-
+	@NotEmpty(message = "field cannot be empty")
+	@Length(min = 4, max = 120, message = "precise field have to be betwem 5 to 100")
 	private String name;
+	@NotEmpty(message = "field cannot be empty")
+	@Email(message = "Invalid email")
 	private String email;
+	@NotEmpty(message = "field cannot be empty")
+	@CPF
 	private String cpf;
-	
+	@NotEmpty(message = "field cannot be empty")
 	private String phone1;
 	private String phone2;
 	

@@ -1,6 +1,5 @@
 package com.vkl.cafemania.services;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +15,7 @@ import com.vkl.cafemania.dto.CollaboratorDTO;
 import com.vkl.cafemania.dto.CollaboratorNewDTO;
 import com.vkl.cafemania.repositories.CollaboratorRepository;
 import com.vkl.cafemania.services.exceptions.DataIntegrityException;
+import com.vkl.cafemania.services.exceptions.ValidationCpfException;
 
 @Service
 public class CollaboratorService{
@@ -29,7 +29,20 @@ public class CollaboratorService{
 	}
 	public Collaborator insert(Collaborator obj) {
 		obj.setId(null);
-		return repo.save(obj);
+//		validationCpf(obj);
+//		Collaborator newObj = find(obj.getId());
+//		if(!obj.getCpf().equals(newObj.getCpf())) {
+			return repo.save(obj);
+//		}
+//		return null;
+	}
+	
+	
+	private void validationCpf(Collaborator obj) {
+		Collaborator newObj = find(obj.getId());
+		if(obj.getCpf().equals(newObj.getCpf())) {
+			throw new ValidationCpfException("cpf already registered");
+		}
 	}
 	
 	public Collaborator update(Collaborator obj) {
