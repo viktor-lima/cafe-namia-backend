@@ -2,12 +2,13 @@ package com.vkl.cafemania.services;
 
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.vkl.cafemania.domain.Category;
 import com.vkl.cafemania.repositories.CategoryRepository;
+import com.vkl.cafemania.services.exceptions.DataIntegrityException;
 import com.vkl.cafemania.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -32,6 +33,16 @@ public class CategoryService{
 	public Category update(Category obj) {
 		find(obj.getId());
 		return repo.save(obj);
+	}
+
+
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);			
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Unable to delete a category that has items");
+		}
 	}
 	
 	
