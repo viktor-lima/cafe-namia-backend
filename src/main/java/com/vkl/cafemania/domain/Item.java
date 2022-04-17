@@ -23,10 +23,14 @@ public class Item implements Serializable{
 	private String name;
 	private String description;
 	
-	
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private Category category;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="collaborator_id")
+	private Collaborator collaborator;
 	
 	public Item() {
 		// TODO Auto-generated constructor stub
@@ -70,6 +74,14 @@ public class Item implements Serializable{
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	
+	public Collaborator getCollaborator() {
+		return collaborator;
+	}
+
+	public void setCollaborator(Collaborator collaborator) {
+		this.collaborator = collaborator;
 	}
 
 	@Override

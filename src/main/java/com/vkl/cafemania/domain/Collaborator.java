@@ -2,8 +2,10 @@ package com.vkl.cafemania.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,30 +13,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-public class Category implements Serializable{
+public class Collaborator implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	private String email;
+	private String cpf;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "category")
+	
+	@OneToMany(mappedBy = "collaborator")
 	List<Item> items = new ArrayList<>();
 	
+//	private Set<String> phones = new HashSet<>();
 	
-	public Category() {
+	public Collaborator() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Category(Integer id, String name) {
+	public Collaborator(Integer id, String name, String email, String cpf) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.email = email;
+		this.cpf = cpf;
 	}
 
 	public Integer getId() {
@@ -53,6 +58,22 @@ public class Category implements Serializable{
 		this.name = name;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
 	public List<Item> getItems() {
 		return items;
 	}
@@ -60,10 +81,18 @@ public class Category implements Serializable{
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
+	
+//	public Set<String> getPhones() {
+//		return phones;
+//	}
+//
+//	public void setPhones(Set<String> phones) {
+//		this.phones = phones;
+//	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(cpf, id);
 	}
 
 	@Override
@@ -74,12 +103,9 @@ public class Category implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
-		return Objects.equals(id, other.id);
+		Collaborator other = (Collaborator) obj;
+		return Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id);
 	}
-	
-	
-	
-	
+
 	
 }

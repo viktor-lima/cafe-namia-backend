@@ -8,8 +8,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.vkl.cafemania.domain.Category;
+import com.vkl.cafemania.domain.Collaborator;
 import com.vkl.cafemania.domain.Item;
 import com.vkl.cafemania.repositories.CategoryRepository;
+import com.vkl.cafemania.repositories.CollaboratorRepository;
 import com.vkl.cafemania.repositories.ItemRepository;
 
 @SpringBootApplication
@@ -19,6 +21,8 @@ public class CafemaniaApplication implements CommandLineRunner{
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private ItemRepository itemRepository;
+	@Autowired
+	private CollaboratorRepository collaboratorRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CafemaniaApplication.class, args);
@@ -45,8 +49,20 @@ public class CafemaniaApplication implements CommandLineRunner{
 		item3.setCategory(category2);
 		item4.setCategory(category3);
 		
-
+		Collaborator collaborator1 = new Collaborator(null, "viktor", "viktor@gmail.com", "16589456800");
+		collaborator1.getItems().addAll(Arrays.asList(item1, item2));
+		item1.setCollaborator(collaborator1);
+		item2.setCollaborator(collaborator1);
+		
+		Collaborator collaborator2 = new Collaborator(null, "tata", "tata@gmail.com", "15689456900");
+		collaborator2.getItems().addAll(Arrays.asList(item3, item4));
+		item3.setCollaborator(collaborator2);
+		item4.setCollaborator(collaborator2);
+		
+		
+		
 		categoryRepository.saveAll(Arrays.asList(category1,category2, category3));
+		collaboratorRepository.saveAll(Arrays.asList(collaborator1,collaborator2));
 		itemRepository.saveAll(Arrays.asList(item1, item2,item3,item4));
 	}
 	
