@@ -15,92 +15,63 @@ import com.vkl.cafemania.dto.CollaboratorDTO;
 import com.vkl.cafemania.dto.CollaboratorNewDTO;
 import com.vkl.cafemania.repositories.CollaboratorRepository;
 import com.vkl.cafemania.services.exceptions.DataIntegrityException;
-import com.vkl.cafemania.services.exceptions.ValidationCpfException;
 
 @Service
-public class CollaboratorService{
+public class CollaboratorService {
 
 	@Autowired
 	private CollaboratorRepository repo;
-	
+
 	public Collaborator find(Integer id) {
 		Optional<Collaborator> obj = repo.findById(id);
 		return obj.orElse(null);
 	}
+
 	public Collaborator insert(Collaborator obj) {
 		obj.setId(null);
-//		validationCpf(obj);
-//		Collaborator newObj = find(obj.getId());
-//		if(!obj.getCpf().equals(newObj.getCpf())) {
-			return repo.save(obj);
-//		}
-//		return null;
+		return repo.save(obj);
 	}
-	
-	
-	private void validationCpf(Collaborator obj) {
-		Collaborator newObj = find(obj.getId());
-		if(obj.getCpf().equals(newObj.getCpf())) {
-			throw new ValidationCpfException("cpf already registered");
-		}
-	}
-	
+
 	public Collaborator update(Collaborator obj) {
 		Collaborator newObj = find(obj.getId());
 		updateData(newObj, obj);
 		return repo.save(newObj);
 	}
 
-
 	private void updateData(Collaborator newObj, Collaborator obj) {
 		newObj.setName(obj.getName());
 		newObj.setEmail(obj.getEmail());
 	}
-	
+
 	public void delete(Integer id) {
 		find(id);
 		try {
-			repo.deleteById(id);			
+			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Unable to delete a Collaborator that has items");
 		}
 	}
-	
+
 	public List<Collaborator> findAll() {
 		return repo.findAll();
 	}
-	
-	public Page<Collaborator> findPage(Integer page, Integer linesPerPage, String  direction, String orderBy){
+
+	public Page<Collaborator> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
-	
+
 	public Collaborator fromDTO(CollaboratorDTO objDto) {
 		return new Collaborator(objDto.getId(), objDto.getName(), objDto.getEmail(), null);
 	}
-	
+
 	public Collaborator fromDTO(CollaboratorNewDTO objDto) {
 		Collaborator collaborator = new Collaborator(null, objDto.getName(), objDto.getEmail(), objDto.getCpf());
 		collaborator.getPhones().add(objDto.getPhone1());
-		
-		if(objDto.getPhone2() != null) 
+
+		if (objDto.getPhone2() != null)
 			collaborator.getPhones().add(objDto.getPhone2());
-		
+
 		return collaborator;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
