@@ -13,8 +13,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Item implements Serializable{
-
+public class Item implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -22,27 +21,28 @@ public class Item implements Serializable{
 	private Integer id;
 	private String name;
 	private String description;
-	
+
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="category_id")
+	@JoinColumn(name = "category_id")
 	private Category category;
-	
+
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="collaborator_id")
+	@JoinColumn(name = "collaborator_id")
 	private Collaborator collaborator;
-	
+
 	public Item() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Item(Integer id, String name, String description, Category category) {
+	public Item(Integer id, String name, String description, Category category, Collaborator collaborator) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.category = category;
+		this.collaborator = collaborator;
 	}
 
 	public Integer getId() {
@@ -76,7 +76,7 @@ public class Item implements Serializable{
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
+
 	public Collaborator getCollaborator() {
 		return collaborator;
 	}
@@ -101,8 +101,5 @@ public class Item implements Serializable{
 		Item other = (Item) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	
-	
 
 }

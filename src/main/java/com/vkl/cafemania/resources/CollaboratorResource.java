@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.vkl.cafemania.domain.Category;
 import com.vkl.cafemania.domain.Collaborator;
 import com.vkl.cafemania.dto.CollaboratorDTO;
 import com.vkl.cafemania.dto.CollaboratorNewDTO;
@@ -32,9 +31,7 @@ public class CollaboratorResource {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Collaborator> find(@PathVariable Integer id) {
-		
 		Collaborator obj = service.find(id);
-		
 		return ResponseEntity.ok().body(obj);
 	}
 	

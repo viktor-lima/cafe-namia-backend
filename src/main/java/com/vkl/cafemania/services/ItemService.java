@@ -3,6 +3,8 @@ package com.vkl.cafemania.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -10,9 +12,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.vkl.cafemania.domain.Category;
+import com.vkl.cafemania.domain.Collaborator;
 import com.vkl.cafemania.domain.Item;
+import com.vkl.cafemania.dto.ItemDTO;
 import com.vkl.cafemania.repositories.ItemRepository;
 import com.vkl.cafemania.services.exceptions.DataIntegrityException;
+import com.vkl.cafemania.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ItemService{
@@ -22,7 +28,14 @@ public class ItemService{
 	
 	public Item find(Integer id) {
 		Optional<Item> obj = repo.findById(id);
-		return obj.orElse(null);
+		
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName(), null));
+	}
+
+	public Item insert(Item obj) {
+		obj.setId(null);
+		return repo.save(obj);
 	}
 
 	public Item update(Item obj) {
@@ -53,5 +66,13 @@ public class ItemService{
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
+
+	public Item fromDTO(ItemDTO objDto) {
+		Category category = new Category(objDto.getCategory_id(), null);
+		Collaborator collaborator = new Collaborator(objDto.getCollaborator_id(), null, null, null);
+		Item item = new Item(null, objDto.getName(), objDto.getDescription(), category, collaborator);
+		return item;
+	}
+
 
 }

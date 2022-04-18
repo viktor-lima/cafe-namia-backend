@@ -10,11 +10,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.vkl.cafemania.domain.Category;
 import com.vkl.cafemania.domain.Collaborator;
 import com.vkl.cafemania.dto.CollaboratorDTO;
 import com.vkl.cafemania.dto.CollaboratorNewDTO;
 import com.vkl.cafemania.repositories.CollaboratorRepository;
 import com.vkl.cafemania.services.exceptions.DataIntegrityException;
+import com.vkl.cafemania.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CollaboratorService {
@@ -24,7 +26,9 @@ public class CollaboratorService {
 
 	public Collaborator find(Integer id) {
 		Optional<Collaborator> obj = repo.findById(id);
-		return obj.orElse(null);
+		
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName(), null));
 	}
 
 	public Collaborator insert(Collaborator obj) {
