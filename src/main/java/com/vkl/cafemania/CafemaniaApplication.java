@@ -48,10 +48,7 @@ public class CafemaniaApplication implements CommandLineRunner{
 		category2.getItems().addAll(Arrays.asList(item3));
 		category3.getItems().addAll(Arrays.asList(item4));
 		
-//		item1.setCategory(category1);
-//		item2.setCategory(category1);
-//		item3.setCategory(category2);
-//		item4.setCategory(category3);
+		
 
 		categoryRepository.saveAll(Arrays.asList(category1,category2, category3,category4,category5));
 		
