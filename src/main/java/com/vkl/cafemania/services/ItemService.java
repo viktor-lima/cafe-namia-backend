@@ -3,8 +3,6 @@ package com.vkl.cafemania.services;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.vkl.cafemania.domain.Category;
 import com.vkl.cafemania.domain.Collaborator;
 import com.vkl.cafemania.domain.Item;
-import com.vkl.cafemania.dto.ItemDTO;
+import com.vkl.cafemania.dto.ItemNewDTO;
 import com.vkl.cafemania.repositories.ItemRepository;
 import com.vkl.cafemania.services.exceptions.DataIntegrityException;
 import com.vkl.cafemania.services.exceptions.ObjectNotFoundException;
@@ -67,7 +65,7 @@ public class ItemService{
 		return repo.findAll(pageRequest);
 	}
 
-	public Item fromDTO(ItemDTO objDto) {
+	public Item fromDTO(ItemNewDTO objDto) {
 		Category category = new Category(objDto.getCategory_id(), null);
 		Collaborator collaborator = new Collaborator(objDto.getCollaborator_id(), null, null, null);
 		Item item = new Item(null, objDto.getName(), objDto.getDescription(), category, collaborator);
