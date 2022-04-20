@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vkl.cafemania.domain.Category;
@@ -20,6 +21,9 @@ import com.vkl.cafemania.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CollaboratorService {
+	
+	@Autowired
+	private BCryptPasswordEncoder coder;
 
 	@Autowired
 	private CollaboratorRepository repo;
@@ -66,11 +70,11 @@ public class CollaboratorService {
 	}
 
 	public Collaborator fromDTO(CollaboratorDTO objDto) {
-		return new Collaborator(objDto.getId(), objDto.getName(), objDto.getEmail(), null);
+		return new Collaborator(objDto.getId(), objDto.getName(), objDto.getEmail(), null,null);
 	}
 
 	public Collaborator fromDTO(CollaboratorNewDTO objDto) {
-		Collaborator collaborator = new Collaborator(null, objDto.getName(), objDto.getEmail(), objDto.getCpf());
+		Collaborator collaborator = new Collaborator(null, objDto.getName(), objDto.getEmail(), objDto.getCpf(), coder.encode(objDto.getPassword()));
 		collaborator.getPhones().add(objDto.getPhone1());
 
 		if (objDto.getPhone2() != null)

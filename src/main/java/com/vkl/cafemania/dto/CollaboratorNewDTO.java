@@ -24,6 +24,10 @@ public class CollaboratorNewDTO implements Serializable{
 	@NotEmpty(message = "field cannot be empty")
 	@CPF
 	private String cpf;
+	
+	@NotEmpty(message = "field cannot be empty")
+	private String password;
+	
 	@NotEmpty(message = "field cannot be empty")
 	private String phone1;
 	private String phone2;
@@ -71,6 +75,15 @@ public class CollaboratorNewDTO implements Serializable{
 	public void setPhone2(String phone2) {
 		this.phone2 = phone2;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	
 	
 	

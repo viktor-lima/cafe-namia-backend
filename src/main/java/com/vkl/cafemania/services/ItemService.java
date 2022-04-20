@@ -67,7 +67,7 @@ public class ItemService{
 
 	public Item fromDTO(ItemNewDTO objDto) {
 		Category category = new Category(objDto.getCategory_id(), null);
-		Collaborator collaborator = new Collaborator(objDto.getCollaborator_id(), null, null, null);
+		Collaborator collaborator = new Collaborator(objDto.getCollaborator_id(), null, null, null,null);
 		Item item = new Item(null, objDto.getName(), objDto.getDescription(), category, collaborator);
 		return item;
 	}

@@ -17,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Collaborator implements Serializable{
 
@@ -28,6 +30,9 @@ public class Collaborator implements Serializable{
 	private String email;
 	@Column(unique = true)
 	private String cpf;
+	
+	@JsonIgnore
+	private String password;
 	
 	
 	@OneToMany(mappedBy = "collaborator")
@@ -41,12 +46,14 @@ public class Collaborator implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Collaborator(Integer id, String name, String email, String cpf) {
+	public Collaborator(Integer id, String name, String email, String cpf, String password) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.cpf = cpf;
+		this.password = password;
+		
 	}
 
 	public Integer getId() {
@@ -95,6 +102,14 @@ public class Collaborator implements Serializable{
 
 	public void setPhones(Set<String> phones) {
 		this.phones = phones;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

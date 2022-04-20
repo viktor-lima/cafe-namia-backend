@@ -3,6 +3,7 @@ package com.vkl.cafemania.services;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vkl.cafemania.domain.Category;
@@ -14,6 +15,9 @@ import com.vkl.cafemania.repositories.ItemRepository;
 
 @Service
 public class DBService {
+	
+	@Autowired
+	private BCryptPasswordEncoder coder;
 
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -31,8 +35,8 @@ public class DBService {
 		Category category4 = new Category(null, "Frutas");
 		Category category5 = new Category(null, "Organicos");
 		
-		Collaborator collaborator1 = new Collaborator(null, "viktor", "viktor@gmail.com", "12475144475");
-		Collaborator collaborator2 = new Collaborator(null, "tata", "tata@gmail.com", "12475194499");
+		Collaborator collaborator1 = new Collaborator(null, "viktor", "viktor@gmail.com", "12475144475", coder.encode("123"));
+		Collaborator collaborator2 = new Collaborator(null, "tata", "tata@gmail.com", "12475194499", coder.encode("123"));
 		
 		Item item1 = new Item(null, "coxinha", "cosinha de frango fit", category1, collaborator1);
 		Item item2 = new Item(null, "Pão de queijo", "", category1, collaborator1);
