@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.vkl.cafemania.domain.Category;
 import com.vkl.cafemania.domain.Collaborator;
 import com.vkl.cafemania.domain.Item;
+import com.vkl.cafemania.domain.enums.Profile;
 import com.vkl.cafemania.repositories.CategoryRepository;
 import com.vkl.cafemania.repositories.CollaboratorRepository;
 import com.vkl.cafemania.repositories.ItemRepository;
@@ -37,6 +38,7 @@ public class DBService {
 		
 		Collaborator collaborator1 = new Collaborator(null, "viktor", "viktor@gmail.com", "12475144475", coder.encode("123"));
 		Collaborator collaborator2 = new Collaborator(null, "tata", "tata@gmail.com", "12475194499", coder.encode("123"));
+		collaborator2.addProfiles(Profile.ADMIN);
 		
 		Item item1 = new Item(null, "coxinha", "cosinha de frango fit", category1, collaborator1);
 		Item item2 = new Item(null, "Pão de queijo", "", category1, collaborator1);

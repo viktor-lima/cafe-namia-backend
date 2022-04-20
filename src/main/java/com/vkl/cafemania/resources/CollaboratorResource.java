@@ -23,7 +23,7 @@ import com.vkl.cafemania.dto.CollaboratorNewDTO;
 import com.vkl.cafemania.services.CollaboratorService;
 
 @RestController
-@RequestMapping(value = "/contributors")
+@RequestMapping(value = "/collaborators")
 public class CollaboratorResource {
 	
 	@Autowired
