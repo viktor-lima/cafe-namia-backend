@@ -32,7 +32,7 @@ public class ItemInsertValidator implements ConstraintValidator<ItemInsert, Item
 		
 		
 		Item aux = repo.findByName(objDto.getName());
-		if(aux.getName().equalsIgnoreCase(objDto.getName()))
+		if(aux == null || aux.getName().equalsIgnoreCase(objDto.getName()))
 			list.add(new FieldMessage("name", "name already registered"));
 		
 
