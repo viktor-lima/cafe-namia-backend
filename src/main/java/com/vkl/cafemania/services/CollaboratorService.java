@@ -13,9 +13,12 @@ import org.springframework.stereotype.Service;
 
 import com.vkl.cafemania.domain.Category;
 import com.vkl.cafemania.domain.Collaborator;
+import com.vkl.cafemania.domain.enums.Profile;
 import com.vkl.cafemania.dto.CollaboratorDTO;
 import com.vkl.cafemania.dto.CollaboratorNewDTO;
 import com.vkl.cafemania.repositories.CollaboratorRepository;
+import com.vkl.cafemania.security.UserSS;
+import com.vkl.cafemania.services.exceptions.AuthorizationException;
 import com.vkl.cafemania.services.exceptions.DataIntegrityException;
 import com.vkl.cafemania.services.exceptions.ObjectNotFoundException;
 
@@ -29,6 +32,11 @@ public class CollaboratorService {
 	private CollaboratorRepository repo;
 
 	public Collaborator find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Profile.ADMIN) && !id.equals(user.getId()))
+			throw new AuthorizationException("access denied");
+		
 		Optional<Collaborator> obj = repo.findById(id);
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
