@@ -25,6 +25,11 @@ public class ItemService{
 	@Autowired
 	private ItemRepository repo;
 	
+	@Autowired
+	private CategoryService categoryService;
+	@Autowired
+	private CollaboratorService collaboratorService;
+	
 	public Item find(Integer id) {
 		Optional<Item> obj = repo.findById(id);
 		
@@ -67,8 +72,8 @@ public class ItemService{
 	}
 
 	public Item fromDTO(ItemDTO objDto) {
-		Category category = new Category(objDto.getCategory_id(), null);
-		Collaborator collaborator = new Collaborator(objDto.getCollaborator_id(), null, null, null,null);
+		Category category = categoryService.find(objDto.getCategory_id());
+		Collaborator collaborator = collaboratorService.find(objDto.getCollaborator_id());
 		Item item = new Item(null, objDto.getName(), objDto.getDescription(), category, collaborator);
 		System.out.println(item);
 		return item;

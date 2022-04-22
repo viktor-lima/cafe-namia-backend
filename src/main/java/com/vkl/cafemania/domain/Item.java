@@ -105,14 +105,15 @@ public class Item implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
+		builder.append("name: ");
 		builder.append(getCollaborator().getName());
 		builder.append(", item: ");
 		builder.append(getName());
 		builder.append(", description: ");
 		builder.append(getDescription());
 		builder.append(", category: ");
-		builder.append(getCategory());
-		builder.append("/n");
+		builder.append(getCategory().getName());
+		builder.append("\n");
 		return builder.toString();
 	}
 
