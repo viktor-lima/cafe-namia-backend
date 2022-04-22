@@ -102,4 +102,22 @@ public class Item implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(getCollaborator().getName());
+		builder.append(", item: ");
+		builder.append(getName());
+		builder.append(", description: ");
+		builder.append(getDescription());
+		builder.append(", category: ");
+		builder.append(getCategory());
+		builder.append("/n");
+		return builder.toString();
+	}
+
+	
+	
+	
+
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.vkl.cafemania.domain.Category;
 import com.vkl.cafemania.domain.Collaborator;
 import com.vkl.cafemania.domain.Item;
+import com.vkl.cafemania.dto.ItemDTO;
 import com.vkl.cafemania.dto.ItemNewDTO;
 import com.vkl.cafemania.repositories.ItemRepository;
 import com.vkl.cafemania.services.exceptions.DataIntegrityException;
@@ -65,10 +66,11 @@ public class ItemService{
 		return repo.findAll(pageRequest);
 	}
 
-	public Item fromDTO(ItemNewDTO objDto) {
+	public Item fromDTO(ItemDTO objDto) {
 		Category category = new Category(objDto.getCategory_id(), null);
 		Collaborator collaborator = new Collaborator(objDto.getCollaborator_id(), null, null, null,null);
 		Item item = new Item(null, objDto.getName(), objDto.getDescription(), category, collaborator);
+		System.out.println(item);
 		return item;
 	}
 

@@ -40,10 +40,11 @@ public class DBService {
 		Collaborator collaborator2 = new Collaborator(null, "tata", "tata@gmail.com", "12475194499", coder.encode("123"));
 		collaborator2.addProfiles(Profile.ADMIN);
 		
-		Item item1 = new Item(null, "coxinha", "cosinha de frango fit", category1, collaborator1);
+		Item item1 = new Item(null, "coxinha", "coxinha de frango fit", category1, collaborator1);
 		Item item2 = new Item(null, "Pão de queijo", "", category1, collaborator1);
 		Item item3 = new Item(null, "Bolo", "Bolo de morango", category2,collaborator2);
 		Item item4 = new Item(null, "suco graviola", "sem açucar", category3,collaborator2);
+		
 		
 		category1.getItems().addAll(Arrays.asList(item1,item2));
 		category2.getItems().addAll(Arrays.asList(item3));

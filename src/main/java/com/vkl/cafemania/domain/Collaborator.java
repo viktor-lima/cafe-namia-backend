@@ -38,7 +38,7 @@ public class Collaborator implements Serializable{
 	
 	
 	@OneToMany(mappedBy = "collaborator")
-	List<Item> items = new ArrayList<>();
+	Set<Item> items =new HashSet<>();
 	
 	@ElementCollection
 	@CollectionTable(name = "phones")
@@ -94,11 +94,11 @@ public class Collaborator implements Serializable{
 		this.cpf = cpf;
 	}
 
-	public List<Item> getItems() {
+	public Set<Item> getItems() {
 		return items;
 	}
 
-	public void setItems(List<Item> items) {
+	public void setItems(Set<Item> items) {
 		this.items = items;
 	}
 	

@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.vkl.cafemania.services.validation.ItemInsert;
 
-@ItemInsert
+
 public class ItemNewDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
