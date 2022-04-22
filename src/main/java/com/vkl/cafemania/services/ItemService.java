@@ -29,6 +29,8 @@ public class ItemService{
 	private CategoryService categoryService;
 	@Autowired
 	private CollaboratorService collaboratorService;
+	@Autowired
+	private EmailService emailService;
 	
 	public Item find(Integer id) {
 		Optional<Item> obj = repo.findById(id);
@@ -75,7 +77,7 @@ public class ItemService{
 		Category category = categoryService.find(objDto.getCategory_id());
 		Collaborator collaborator = collaboratorService.find(objDto.getCollaborator_id());
 		Item item = new Item(null, objDto.getName(), objDto.getDescription(), category, collaborator);
-		System.out.println(item);
+		emailService.sendOrderConfirmationEmail(item);
 		return item;
 	}
 

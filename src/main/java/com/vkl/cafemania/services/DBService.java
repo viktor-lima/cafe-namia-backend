@@ -36,7 +36,7 @@ public class DBService {
 		Category category4 = new Category(null, "Frutas");
 		Category category5 = new Category(null, "Organicos");
 		
-		Collaborator collaborator1 = new Collaborator(null, "viktor", "viktor@gmail.com", "12475144475", coder.encode("123"));
+		Collaborator collaborator1 = new Collaborator(null, "viktor", "alemaojk249@gmail.com", "12475144475", coder.encode("123"));
 		Collaborator collaborator2 = new Collaborator(null, "tata", "tata@gmail.com", "12475194499", coder.encode("123"));
 		collaborator2.addProfiles(Profile.ADMIN);
 		
