@@ -61,12 +61,11 @@ public class CollaboratorResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<CollaboratorDTO>> findAll() {
+	public ResponseEntity<List<Collaborator>> findAll() {
 		List<Collaborator> list = service.findAll();
-		List<CollaboratorDTO> objDto = list.stream().map(obj -> new CollaboratorDTO(obj)).collect(Collectors.toList()); 
-		return ResponseEntity.ok().body(objDto);
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")

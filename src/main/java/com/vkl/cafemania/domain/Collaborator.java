@@ -38,7 +38,7 @@ public class Collaborator implements Serializable{
 	
 	
 	@OneToMany(mappedBy = "collaborator")
-	Set<Item> items =new HashSet<>();
+	private Set<Item> items =new HashSet<>();
 	
 	@ElementCollection
 	@CollectionTable(name = "phones")
