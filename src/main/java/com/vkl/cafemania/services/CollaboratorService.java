@@ -40,7 +40,7 @@ public class CollaboratorService {
 		Optional<Collaborator> obj = repo.findById(id);
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName(), null));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName()));
 	}
 
 	public Collaborator insert(Collaborator obj) {
@@ -89,5 +89,18 @@ public class CollaboratorService {
 			collaborator.getPhones().add(objDto.getPhone2());
 
 		return collaborator;
+	}
+
+	public Collaborator findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Profile.ADMIN) && !email.equals(user.getUsername()))
+			throw new AuthorizationException("access denied");
+		
+		Collaborator obj = repo.findByEmail(email);
+		if(obj ==null) {
+			new ObjectNotFoundException(
+					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Category.class.getName());
+		}
+		return obj;
 	}
 }
