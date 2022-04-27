@@ -37,9 +37,9 @@ public class CollaboratorResource {
 	}
 	
 	@RequestMapping(value = "/email", method = RequestMethod.GET)
-	public ResponseEntity<Collaborator> find(@RequestParam(value = "value") String email) {
+	public ResponseEntity<CollaboratorDTO> find(@RequestParam(value = "value") String email) {
 		Collaborator obj = service.findByEmail(email);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(new CollaboratorDTO(obj));
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
