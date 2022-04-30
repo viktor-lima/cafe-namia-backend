@@ -73,8 +73,5 @@ public class ItemResource {
 			) {
 		Page<Item> list = service.findPage(page,linesPerPage,direction,orderBy);
 		return ResponseEntity.ok().body(list);
-	}
-	
-	
-	
+	}	
 }

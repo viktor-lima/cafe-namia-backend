@@ -22,7 +22,7 @@ public class CollaboratorNewDTO implements Serializable{
 	@Email(message = "Invalid email")
 	private String email;
 	@NotEmpty(message = "field cannot be empty")
-	@CPF
+	//@CPF
 	private String cpf;
 	
 	@NotEmpty(message = "field cannot be empty")

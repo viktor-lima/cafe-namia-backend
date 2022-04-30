@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.vkl.cafemania.domain.Category;
 import com.vkl.cafemania.domain.Collaborator;
+import com.vkl.cafemania.domain.Item;
 import com.vkl.cafemania.domain.enums.Profile;
 import com.vkl.cafemania.dto.CollaboratorDTO;
 import com.vkl.cafemania.dto.CollaboratorNewDTO;
@@ -102,5 +103,5 @@ public class CollaboratorService {
 					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Category.class.getName());
 		}
 		return obj;
-	}
+	}	
 }

@@ -13,4 +13,5 @@ public interface CollaboratorRepository extends JpaRepository<Collaborator, Inte
 	Collaborator findByCpf(String cpf);
 	@Transactional(readOnly = true)
 	Collaborator findByEmail(String email);
+
 }

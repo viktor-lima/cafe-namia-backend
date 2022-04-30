@@ -37,6 +37,11 @@ public class CollaboratorInsertValidator implements ConstraintValidator<Collabor
 		if(aux != null)
 			list.add(new FieldMessage("cpf", "cpf already registered"));
 		
+		Collaborator collaborator = repo.findByEmail(objDto.getEmail());
+		if (collaborator != null) {
+			list.add(new FieldMessage("email", "Email já existente"));
+		}
+		
 
 		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
