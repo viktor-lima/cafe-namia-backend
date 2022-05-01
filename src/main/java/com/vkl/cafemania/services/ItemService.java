@@ -81,16 +81,6 @@ public class ItemService {
 //		return repo.findAll(pageRequest);
 	}
 
-	public Page<Item> findPageOnly(Integer page, Integer linesPerPage, String direction, String orderBy) {
-		UserSS user = UserService.authenticated();
-		if (user == null)
-			throw new AuthorizationException("access denied");
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		Collaborator collaborator = collaboratorService.find(user.getId());
-
-		return repo.findByCollaborator(collaborator, pageRequest);
-	}
-
 	public Item fromDTO(ItemDTO objDto) {
 		Category category = categoryService.find(objDto.getCategory_id());
 		Collaborator collaborator = collaboratorService.find(objDto.getCollaborator_id());
