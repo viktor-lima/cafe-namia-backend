@@ -1,6 +1,7 @@
 package com.vkl.cafemania.services;
 
 import java.util.List;
+import java.util.Locale.Category;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.vkl.cafemania.domain.Category;
 import com.vkl.cafemania.domain.Collaborator;
-import com.vkl.cafemania.domain.Item;
 import com.vkl.cafemania.domain.enums.Profile;
 import com.vkl.cafemania.dto.CollaboratorDTO;
 import com.vkl.cafemania.dto.CollaboratorNewDTO;
@@ -41,7 +40,7 @@ public class CollaboratorService {
 		Optional<Collaborator> obj = repo.findById(id);
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Collaborator.class.getName()));
 	}
 
 	public Collaborator insert(Collaborator obj) {
@@ -100,7 +99,7 @@ public class CollaboratorService {
 		Collaborator obj = repo.findByEmail(email);
 		if(obj ==null) {
 			new ObjectNotFoundException(
-					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Category.class.getName());
+					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Collaborator.class.getName());
 		}
 		return obj;
 	}	

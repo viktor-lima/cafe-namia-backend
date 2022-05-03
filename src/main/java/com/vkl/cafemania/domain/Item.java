@@ -22,10 +22,6 @@ public class Item implements Serializable {
 	private String name;
 	private String description;
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Category category;
 
 	@JsonIgnore
 	@ManyToOne
@@ -36,12 +32,11 @@ public class Item implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Item(Integer id, String name, String description, Category category, Collaborator collaborator) {
+	public Item(Integer id, String name, String description, Collaborator collaborator) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.category = category;
 		this.collaborator = collaborator;
 	}
 
@@ -69,13 +64,6 @@ public class Item implements Serializable {
 		this.description = description;
 	}
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
 
 	public Collaborator getCollaborator() {
 		return collaborator;
@@ -111,8 +99,6 @@ public class Item implements Serializable {
 		builder.append(getName());
 		builder.append(", description: ");
 		builder.append(getDescription());
-		builder.append(", category: ");
-		builder.append(getCategory().getName());
 		builder.append("\n");
 		return builder.toString();
 	}

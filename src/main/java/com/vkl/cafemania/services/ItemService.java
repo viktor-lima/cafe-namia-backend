@@ -10,11 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.vkl.cafemania.domain.Category;
 import com.vkl.cafemania.domain.Collaborator;
 import com.vkl.cafemania.domain.Item;
 import com.vkl.cafemania.dto.ItemDTO;
-import com.vkl.cafemania.dto.ItemNewDTO;
 import com.vkl.cafemania.repositories.ItemRepository;
 import com.vkl.cafemania.security.UserSS;
 import com.vkl.cafemania.services.exceptions.AuthorizationException;
@@ -28,8 +26,6 @@ public class ItemService {
 	private ItemRepository repo;
 
 	@Autowired
-	private CategoryService categoryService;
-	@Autowired
 	private CollaboratorService collaboratorService;
 	@Autowired
 	private EmailService emailService;
@@ -38,7 +34,7 @@ public class ItemService {
 		Optional<Item> obj = repo.findById(id);
 
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName(), null));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Item.class.getName(), null));
 	}
 
 	public Item insert(Item obj) {
@@ -78,23 +74,11 @@ public class ItemService {
 		Collaborator collaborator = collaboratorService.find(user.getId());
 
 		return repo.findByCollaborator(collaborator, pageRequest);
-//		return repo.findAll(pageRequest);
-	}
-
-	public Page<Item> findPageOnly(Integer page, Integer linesPerPage, String direction, String orderBy) {
-		UserSS user = UserService.authenticated();
-		if (user == null)
-			throw new AuthorizationException("access denied");
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		Collaborator collaborator = collaboratorService.find(user.getId());
-
-		return repo.findByCollaborator(collaborator, pageRequest);
 	}
 
 	public Item fromDTO(ItemDTO objDto) {
-		Category category = categoryService.find(objDto.getCategory_id());
 		Collaborator collaborator = collaboratorService.find(objDto.getCollaborator_id());
-		Item item = new Item(null, objDto.getName(), objDto.getDescription(), category, collaborator);
+		Item item = new Item(null, objDto.getName(), objDto.getDescription(), collaborator);
 		emailService.sendOrderConfirmationEmail(item);
 		return item;
 	}

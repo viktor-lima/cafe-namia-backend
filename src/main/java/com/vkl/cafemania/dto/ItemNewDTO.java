@@ -6,8 +6,6 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.vkl.cafemania.services.validation.ItemInsert;
-
 
 public class ItemNewDTO implements Serializable {
 
@@ -18,7 +16,6 @@ public class ItemNewDTO implements Serializable {
 	@Length(min = 4, max = 100, message = "precise field have to be betwem 5 to 100")
 	private String name;
 	private String description;
-	private Integer category_id;
 	private Integer collaborator_id;
 	
 	public ItemNewDTO() {
@@ -49,14 +46,6 @@ public class ItemNewDTO implements Serializable {
 		this.description = description;
 	}
 
-	public Integer getCategory_id() {
-		return category_id;
-	}
-
-	public void setCategory_id(Integer category_id) {
-		this.category_id = category_id;
-	}
-
 	public Integer getCollaborator_id() {
 		return collaborator_id;
 	}
@@ -64,8 +53,5 @@ public class ItemNewDTO implements Serializable {
 	public void setCollaborator_id(Integer collaborator_id) {
 		this.collaborator_id = collaborator_id;
 	}
-	
-	
 
-	
 }
