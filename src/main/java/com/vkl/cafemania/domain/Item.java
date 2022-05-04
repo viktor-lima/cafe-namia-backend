@@ -3,6 +3,7 @@ package com.vkl.cafemania.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vkl.cafemania.services.validation.ItemUpdate;
 
 @Entity
 public class Item implements Serializable {
@@ -19,6 +21,7 @@ public class Item implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(unique = true)
 	private String name;
 	private String description;
 
@@ -73,9 +76,11 @@ public class Item implements Serializable {
 		this.collaborator = collaborator;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(id, name);
 	}
 
 	@Override
@@ -87,7 +92,7 @@ public class Item implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
 
 	@Override

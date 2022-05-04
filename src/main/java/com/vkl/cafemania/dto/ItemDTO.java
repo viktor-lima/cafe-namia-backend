@@ -1,14 +1,17 @@
 package com.vkl.cafemania.dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.vkl.cafemania.domain.Item;
 import com.vkl.cafemania.services.validation.ItemInsert;
+import com.vkl.cafemania.services.validation.ItemUpdate;
 
-@ItemInsert
+@ItemUpdate
 public class ItemDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -18,11 +21,15 @@ public class ItemDTO implements Serializable {
 	@Length(min = 4, max = 100, message = "precise field have to be betwem 5 to 100")
 	private String name;
 	private String description;
-	private Integer category_id;
-	private Integer collaborator_id;
 	
 	public ItemDTO() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public ItemDTO(Item obj) {
+		this.id = obj.getId();
+		this.name = obj.getName();
+		this.description = obj.getDescription();
 	}
 
 	public Integer getId() {
@@ -49,23 +56,23 @@ public class ItemDTO implements Serializable {
 		this.description = description;
 	}
 
-	public Integer getCategory_id() {
-		return category_id;
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
 	}
 
-	public void setCategory_id(Integer category_id) {
-		this.category_id = category_id;
-	}
-
-	public Integer getCollaborator_id() {
-		return collaborator_id;
-	}
-
-	public void setCollaborator_id(Integer collaborator_id) {
-		this.collaborator_id = collaborator_id;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemDTO other = (ItemDTO) obj;
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
 	
 	
 
-	
 }

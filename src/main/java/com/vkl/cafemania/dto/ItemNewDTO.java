@@ -1,12 +1,16 @@
 package com.vkl.cafemania.dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.vkl.cafemania.domain.Item;
+import com.vkl.cafemania.services.validation.ItemInsert;
 
+@ItemInsert
 public class ItemNewDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,7 +25,7 @@ public class ItemNewDTO implements Serializable {
 	public ItemNewDTO() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -53,5 +57,24 @@ public class ItemNewDTO implements Serializable {
 	public void setCollaborator_id(Integer collaborator_id) {
 		this.collaborator_id = collaborator_id;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemNewDTO other = (ItemNewDTO) obj;
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
+	}
+	
+	
 
 }

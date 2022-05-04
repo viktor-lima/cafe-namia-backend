@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.vkl.cafemania.domain.Collaborator;
 import com.vkl.cafemania.domain.Item;
 import com.vkl.cafemania.dto.ItemDTO;
+import com.vkl.cafemania.dto.ItemNewDTO;
 import com.vkl.cafemania.repositories.ItemRepository;
 import com.vkl.cafemania.security.UserSS;
 import com.vkl.cafemania.services.exceptions.AuthorizationException;
@@ -75,8 +76,12 @@ public class ItemService {
 
 		return repo.findByCollaborator(collaborator, pageRequest);
 	}
-
+	
 	public Item fromDTO(ItemDTO objDto) {
+		return new Item(objDto.getId(), objDto.getName(), objDto.getDescription(), null);
+	}
+
+	public Item fromDTO(ItemNewDTO objDto) {
 		Collaborator collaborator = collaboratorService.find(objDto.getCollaborator_id());
 		Item item = new Item(null, objDto.getName(), objDto.getDescription(), collaborator);
 		emailService.sendOrderConfirmationEmail(item);

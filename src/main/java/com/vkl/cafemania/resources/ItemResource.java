@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vkl.cafemania.domain.Item;
 import com.vkl.cafemania.dto.ItemDTO;
+import com.vkl.cafemania.dto.ItemNewDTO;
 import com.vkl.cafemania.services.ItemService;
 
 @RestController
@@ -34,7 +35,7 @@ public class ItemResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Item> insert(@Valid @RequestBody ItemDTO objDto){
+	public ResponseEntity<Item> insert(@Valid @RequestBody ItemNewDTO objDto){
 		Item obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -45,7 +46,8 @@ public class ItemResource {
 	
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update (@Valid @RequestBody Item obj, @PathVariable Integer id){
+	public ResponseEntity<Void> update (@Valid @RequestBody ItemDTO objDto, @PathVariable Integer id){
+		Item obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();

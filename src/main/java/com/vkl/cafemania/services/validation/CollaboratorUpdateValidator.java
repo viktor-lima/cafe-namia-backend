@@ -45,7 +45,7 @@ public class CollaboratorUpdateValidator implements ConstraintValidator<Collabor
 		
 		Collaborator aux = repo.findByEmail(objDto.getEmail());
 		if(aux != null && !aux.getId().equals(uriId))
-			list.add(new FieldMessage("email", "cpf already registered"));
+			list.add(new FieldMessage("email", "email already registered"));
 		
 
 		for (FieldMessage e : list) {
