@@ -5,7 +5,7 @@
 [![heroku](https://img.shields.io/badge/-Heroku-05122A?style=flat&logo=heroku)](https://dashboard.heroku.com/apps/cafe-mania-app)&nbsp;
 
 <p>
-  Sistema que basicamente coloca items que colaboradores irão levar para facilitar o cafe da manhã.<br>
+  Sistema que basicamente coloca items que colaboradores irão levar para facilitar o cafe da manhã. Este simples sistema é pra comtribuidores que queiram tomar cafe da manha, no maior estilo cada um leva um tipo de comida, coloca o item e todos sabem o que cada um  vai levar pra não ter problema ou conflito no "merge" kkk. <br>
   API Rest usando Java com Spring Boot e banco de dados MySQL, mapeamento objeto-relacional, Serviço de email com SMTP da Google,  autenticação e autorização com tokens JWT, e implantação na nuvem usando a plataforma Heroku.
   Banco de dados H2 para testes, com profile de teste , profile de desenvolvimento e profile de produção.
 </p>
